@@ -27,7 +27,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 			try {
 				EmployeeDTO employee = empDAO.viewYourProfile(EmployeeUI.getEmpId());
-				System.out.println(employee);
+				System.out.println(employee.toString1());
 				
 			} catch (NoSuchRecordFoundException | SomthingWentWrongException e) {
 				System.out.println(e);
@@ -36,28 +36,30 @@ public class EmployeeUIImpl extends EmployeeUI{
 
 	@Override
 	public void updateProfileUI(Scanner sr) {
-		System.out.println("................................");
+		System.out.println("............................................");
 		EmployeeUIImpl.updateMenu();
-		int choice = 0;
+		String choice = "0";
 		do {
 			
 			System.out.print("Enter your selection: ");
-			choice = sr.nextInt();
+			choice = sr.next();
 			switch(choice) {
-				case 1:
-					System.out.println("Sorry this service is termery close please connect with admin deptment");
+				case "1":
+					System.out.println("  Sorry this service is termery close please connect with admin department\n ");
 					break;
-				case 2:
-					System.out.println("Sorry this service is termery close please connect with admin deptment");
+				case "2":
+					System.out.println("  Sorry this service is termery close please connect with admin department\n ");
 					break;
-				case 3:
+				case "3":
 					changePasswordUI(sr);
+					System.out.println();
 					break;
-				case 0:
-					System.out.println("Thank you -----");
+					
+				default: 
+					System.out.println("  Opps !! Wrong Choice !! Please Enter Correct Choice..");
 			}
 			
-		}while(choice!=0);
+		}while(!choice.equals("1")&&!choice.equals("2")&&!choice.equals("3"));
 		
 	}
 
@@ -89,14 +91,30 @@ public class EmployeeUIImpl extends EmployeeUI{
 
 	@Override
 	public void applyforLeaveUI(Scanner sr) {
-		System.out.println("=============================================");
+		System.out.println(".............................................");
 		System.out.println("Apply for Leave ....");
 		int type = 0;
+		EmployeeUIImpl.leaveMenu();
+		String choice = "0";
 		do {
-			leaveMenu();
 				System.out.println("Enter type of leave : ");
-				type = sr.nextInt();
-		}while(type!=1&&type!=2&&type!=3);
+				choice = sr.next();
+				switch(choice) {
+				case "1":
+					type = 1;
+					break;
+				case "2":
+					type = 2;
+					break;
+				case "3":
+					type = 3;
+					break;
+					
+				default: 
+					System.out.println(" Wrong input please enter correct choice....");
+			}
+			
+		}while(!choice.equals("1")&&!choice.equals("2")&&!choice.equals("3"));
 			
 		System.out.println("Enter How Many Days you want to take leave : ");
 		int days_Of_Leave = sr.nextInt();
@@ -123,14 +141,15 @@ public class EmployeeUIImpl extends EmployeeUI{
 	@Override
 	void leaveStatus(Scanner sr) {
 		System.out.println("=============================================");
-		System.out.println("Status of Leave of top two requested ....");
+		System.out.println("Recent Leave Request Status ....");
 		
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
-			List<LeaveDTO>  list = empDAO.leaveStatus(EmployeeUI.getEmpId());
-			list.stream().forEach(System.out::println); // need to work on it
+			LeaveDTO empLeave = empDAO.leaveStatus(EmployeeUI.getEmpId());
+			System.out.println(empLeave.toString1()); // need to work on 
+				Thread.sleep(1000);
 			
-		}catch(NoSuchRecordFoundException|SomthingWentWrongException ex) {
+		}catch(NoSuchRecordFoundException|SomthingWentWrongException | InterruptedException ex) {
 			System.out.println(ex);
 		}
 		
@@ -141,7 +160,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 	@Override
 	public void recordOfLeaveUI(Scanner sr) {
 		System.out.println("=============================================");
-		System.out.println("Leave History Record ......");
+		System.out.println("Recent Accept Leaves Record ......");
 		
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
@@ -149,7 +168,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 			list.stream().forEach(System.out::println);   // need to work on it
 			
 		}catch(NoSuchRecordFoundException|SomthingWentWrongException ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 		}
 		
 		System.out.println("=============================================");

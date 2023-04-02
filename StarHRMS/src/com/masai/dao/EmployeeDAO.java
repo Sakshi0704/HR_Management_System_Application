@@ -19,7 +19,7 @@ public interface EmployeeDAO {
 
 	public void applyForLeave(LeaveDTO leave ,int empId) throws SomthingWentWrongException;
 
-	public List<LeaveDTO> leaveStatus(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException;
+	public LeaveDTO leaveStatus(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException;
 
 	public List<LeaveDTO> recordOfLeave(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException;
 

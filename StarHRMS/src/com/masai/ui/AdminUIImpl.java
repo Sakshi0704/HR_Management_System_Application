@@ -83,8 +83,8 @@ public class AdminUIImpl extends AdminUI {
 		System.out.println(" Press 1 --> To Update Department ID ");
 		System.out.println(" Press 2 --> To Update Department Name");
 		System.out.println(" Press 3 --> To Update Department All Details ");
+		System.out.println(" Press 0 --> Exit / Go Back  ");
 		System.out.println("_______________________________________________");
-		
 	}
 	
 	
@@ -92,26 +92,30 @@ public class AdminUIImpl extends AdminUI {
 	void updateDepartmentUI(Scanner sr) {
 		System.out.println("==========================");
 		System.out.println("___________________________");
-		int choice = 0;
+		String choice = "0";
 		do {
 			AdminUIImpl.updateMenu();
 			System.out.print("Enter your selection: ");
-			choice = sr.nextInt();
+			choice = sr.next();
 			switch(choice) {
-				case 1:
+				case "1":
 					System.out.println("Sorry this service is termery close please choose option 3");
 					break;
-				case 2:
+				case "2":
 					System.out.println("Sorry this service is termery close please choose option 3");
 					break;
-				case 3:
+				case "3":
 					updateDepartmentAllDetailsUI(sr);
 					break;
-				case 0:
+				case "0":
 					System.out.println("Thank you -----");
+					break;
+					
+				default:
+					System.out.println("Opps !! Please Enter Correct Option");
 			}
 			
-		}while(choice!=0);
+		}while(!choice.equals("0"));
 		
 		System.out.println("==========================");
 		
@@ -119,12 +123,12 @@ public class AdminUIImpl extends AdminUI {
 	
 	void updateDepartmentAllDetailsUI(Scanner sr) {
 		System.out.println("==========================");
-		System.out.print("Enter Department Id ( In which Updation need to be done ) : ");
-		String oldDeptID = sr.next();
-		System.out.println("Enter Updated Departmnet Details........");
-		System.out.print("Enter Updated Department ID : ");
+		System.out.print("Enter Department Id ( System - Generated (did)) : ");
+		int oldDeptID = sr.nextInt();
+		System.out.println("Enter Updated Department Details........");
+		System.out.print("Enter Updated Department ID ( Created By Admin (deptId)) : ");
 		String deptId = sr.next();
-		System.out.println("Enter Updated Department Name : ");
+		System.out.print("Enter Updated Department Name : ");
 		String deptName = sr.next();
 		
 		AdminDAO adminDAO = new AdminDAOImpl();
@@ -149,25 +153,26 @@ public class AdminUIImpl extends AdminUI {
 		System.out.print("Enter Employee ID : ");
 		employee.setEmpId(sr.next());
 		
-		System.out.println("Enter Employee Name ");
+		System.out.print("Enter Employee Name ");
 		employee.setEname(sr.next());
 	
-		System.out.println("Enter Employee Email : ");
+		System.out.print("Enter Employee Email : ");
 		employee.setEmail(sr.next());
 		
-		System.out.println("Enter Employee Address : ");
+		System.out.print("Enter Employee Address : ");
 		employee.setEmpAddress(sr.next());
 
-		System.out.println("Enter Employee Joing_Date (yyyy-mm-xx) : ");
+		System.out.print("Enter Employee Joing_Date (yyyy-mm-xx) : ");
 		employee.setDate(LocalDate.parse(sr.next())); 
 		
 		
-		System.out.println("Enter Employee Salary_Per_Month : ");
+		System.out.print("Enter Employee Salary_Per_Month : ");
 		employee.setSalary(sr.nextDouble());
 		
-		int did = 0;
-		System.out.println("Wants to add deptId ( Y / N ) : ");
+		int did = 1;
+		System.out.print("Wants to add deptId ( Y / N ) : ");
 		if(sr.next().toUpperCase().equals("Y")) {
+			System.out.print("Enter deptId ( System - Generated (did)):  ");
 			did = sr.nextInt();
 		}
 		

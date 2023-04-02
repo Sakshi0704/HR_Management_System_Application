@@ -20,7 +20,8 @@ public abstract class AdminUI {
 	static void adminLogInUI(Scanner sr) throws InterruptedException {
 		System.out.println("--------- LogIn To Admin -----------");
 		System.out.println("=====================================");
-		int i=0,choice =1;
+		int i=0;
+		String choice = "0";
 		do {
 			System.out.println("Enter Your Username :  ");
 			String username = sr.next();
@@ -42,8 +43,13 @@ public abstract class AdminUI {
 				if(i!=3) {
 					System.out.println("Press 1: Wants to try again!!!");
 					System.out.println("Press 0: Want to go back to Home paga\n");
-					System.out.print("Enter your choice:  ");
-					choice = sr.nextInt();
+					do {
+						System.out.print("Enter your choice:  ");
+						choice = sr.next();
+						if(!choice.equals("1")&&!choice.equals("0")) {
+							System.out.println("Opps ! Wrong input please try again...");
+						}
+					}while(!choice.equals("1")&&!choice.equals("0"));
 					i++;
 				}
 				else {
@@ -51,31 +57,21 @@ public abstract class AdminUI {
 					System.out.println("Visit after some Time!!!------");
 				}
 			}
-		}while(i!=3||choice!=0);
+		}while(i!=3&&!choice.equals("0"));
 	}
 	
 	static void adminMenu() throws InterruptedException {
-		System.out.println("\n\r Please Choose an Option ------------\n");
+		System.out.println("\nPlease Choose an Option ------------");
 		System.out.println("Press 1 : < ---- > Add New Department ");
-		Thread.sleep(1000);
 		System.out.println("Press 2 : < ---- > View All The Departments ");
-		Thread.sleep(1000);
 		System.out.println("Press 3 : < ---- > View All The Employees ");
-		Thread.sleep(1000);
 		System.out.println("Press 4 : < ---- > Update The Department ");
-		Thread.sleep(1000);
 		System.out.println("Press 5 : < ---- > Add New Employee ");
-		Thread.sleep(1000);
 		System.out.println("Press 6 : < ---- > Transfer employee to other department ");
-		Thread.sleep(1000);
 		System.out.println("Press 7 : < ---- > Accept Leaves or Reject Leave Of Employee ");
-		Thread.sleep(1000);
 		System.out.println("Press 8 : < ---- > Fire An Employee");
-		Thread.sleep(1000);
 		System.out.println("Press 9 : < ---- > Delete Department ");
-		Thread.sleep(1000);
 		System.out.println("Press 0 : < ---- > Exit -OR- Go Back To Home ");
-		Thread.sleep(1000);
 	}
 	
 	
@@ -92,68 +88,60 @@ public abstract class AdminUI {
 	
 
 	static void admin(Scanner sr) throws InterruptedException {
-		int choice = 0;
+		String choice = "0";
 		while(login) {
 			adminMenu();
 			AdminUI adminUI = new AdminUIImpl();
 		    System.out.print("Enter your selection : ");
-		    choice = sr.nextInt();
+		    choice = sr.next();
 		    System.out.println();
 		    switch(choice) {
-		    		case 1:
+		    		case "1":
 		    			adminUI.addNewDepartmentUI(sr);
-		    			Thread.sleep(2000);
 		    			break;
 		    		
-		    		case 2:
+		    		case "2":
 		    			adminUI.viewAllDepartmentUI();
-		    			Thread.sleep(2000);
 		    			 break;
 		    		
-		    		case 3:
+		    		case "3":
 		    			 adminUI.viewAllEmployeeUI(sr);
-		    			 Thread.sleep(2000);
 		    			 break;
 		    			 
-		    		case 4:
+		    		case "4":
 		    			 adminUI.updateDepartmentUI(sr);
-		    			 Thread.sleep(2000);
 		    			 break;
 		    		
-		    		case 5:
+		    		case "5":
 		    			 adminUI.addNewEmployeeUI(sr);
-		    			 Thread.sleep(2000);
 		    			 break;
 		    		
-		    		case 6:
+		    		case "6":
 		    			adminUI.transferemployeetootherdepartUI(sr);
-		    			Thread.sleep(2000);
 		    			break;
 		    	
-		    		case 7: 
+		    		case "7": 
 		    			adminUI.aceeptOrRejectLeavesOfEmployeeUI(sr);
-		    			Thread.sleep(2000);
 		    			break;
 		    		
-		    		case 8:
+		    		case "8":
 		    			adminUI.fireEmployeeUI(sr);
-		    			Thread.sleep(2000);
 		    			break;
 		    			
-		    		case 9:
+		    		case "9":
 		    			 adminUI.deleteDepartmentUI(sr);
-		    			 Thread.sleep(2000);
 		    			 break;
 		 
-		    	
-		    		case 0:
+		    		case "0":
 		    			  System.out.println("-------Thanks for Your Visit----------");
 		    			  login = false;
 		    			  break;
 		    			 
 		    		default:
 		    			System.out.println("Opps wrong input! please try again");
+		    			
 		    }
+		    Thread.sleep(1000);
 		}
 	}
 

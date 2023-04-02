@@ -84,19 +84,19 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void updateDepartmentAllDetails(String oldDeptID,String deptId, String deptName)
+	public void updateDepartmentAllDetails(int oldDeptID,String deptId, String deptName)
 			throws SomthingWentWrongException, NoSuchRecordFoundException {
 			
 		Connection conn = null;
 		
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "Update dept set deptID = ? , deptName = ? where deptID = ?";
+			String query = "Update dept set deptID = ? , deptName = ? where did = ?";
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, deptId);
 			ps.setString(2,deptName);
-			ps.setString(3, oldDeptID);
+			ps.setInt(3, oldDeptID);
 			
 			int rs = ps.executeUpdate();
 			
@@ -161,12 +161,10 @@ public class AdminDAOImpl implements AdminDAO{
 		try {
 			conn = DBUtility.getConnectionToDataBase();
 			String query = "";
-			if(did==0) {
-				query = "insert into employee empId,ename,email,empAddress,date_of_joining,salary_per_month values (?,?,?,?,?,?)";
-			}
-			else {
-				query = "insert into employee empId,ename,email,empAddress,date_of_joining,salary_per_month,did values (?,?,?,?,?,?,?)";
-			}
+			
+			 query = "insert into employee (empId,ename,email,empAddress,date_of_joining,salary_per_month,did) values (?,?,?,?,?,?,?)";
+			
+
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, employee.getEmpId());
 			ps.setString(2, employee.getEname());
@@ -174,10 +172,7 @@ public class AdminDAOImpl implements AdminDAO{
 			ps.setString(4, employee.getEmpAddress());
 			ps.setDate(5,java.sql.Date.valueOf(employee.getDate()));
 			ps.setDouble(6, employee.getSalary());
-			
-			if(did!=0) {
-				ps.setInt(7, did);
-			}
+			ps.setInt(7, did);
 			
 			ps.executeUpdate();
 			

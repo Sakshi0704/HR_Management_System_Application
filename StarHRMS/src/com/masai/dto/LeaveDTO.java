@@ -38,5 +38,7 @@ public interface LeaveDTO {
 	public String getEmpName();
 
 	public void setEmpName(String empName);
+
+	String toString1();
 	
 }

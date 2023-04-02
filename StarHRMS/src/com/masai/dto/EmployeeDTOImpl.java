@@ -18,8 +18,9 @@ public class EmployeeDTOImpl implements EmployeeDTO {
 	public EmployeeDTOImpl() {
 		
 	}
+	
 
-	public EmployeeDTOImpl(String empId, String ename, String email, String password, String empAddress, double salary,
+	public EmployeeDTOImpl(String empId, String ename, String email, String empAddress, String password, double salary,
 			 LocalDate date,DepartmentDTO dept) {
 		super();
 		this.empId = empId;
@@ -116,8 +117,15 @@ public class EmployeeDTOImpl implements EmployeeDTO {
 
 	@Override
 	public String toString() {
+		return " empId = " + empId + ", ename = " + ename + ", email = " + email + ", password = " + password
+				+ " empAddress = " + empAddress + ",\n salary = " + salary + ", deptId = " + dept.getDeptID()+", deptName = " +dept.getDiptname()+ ", date_of_joining = " + date + "\n";
+	}
+
+	@Override
+	public String toString1() {
+		// TODO Auto-generated method stub
 		return " empId = " + empId + "\n ename = " + ename + "\n email = " + email + "\n password = " + password
-				+ "\n empAddress = " + empAddress + "\n salary = " + salary + "\n deptId = " + dept.getDeptID()+"\n deptName = " +dept.getDiptname()+ ", date=" + date;
+				+ "\n empAddress = " + empAddress + "\n salary = " + salary + "\n deptId = " + dept.getDeptID()+"\n deptName = " +dept.getDiptname()+ ",\n date_of_joining = " + date;
 	}
 
 	
