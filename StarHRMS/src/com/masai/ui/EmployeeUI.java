@@ -16,17 +16,19 @@ public abstract class EmployeeUI {
 	private static boolean logIn = false;
 	
 	private static void employeeMenu() {
-		System.out.println("-------------------Welcome "+ empName + "--------------------------");
-		System.out.println("\n");
-		System.out.println("-------Employee DashBord--------");
-		System.out.println("------------------------------");
-		System.out.println("\n\r Please Choose an Option ------------\n\r");
-		System.out.println("Press 1 : < ---- > View Your Profile \n\r");
-		System.out.println("Press 2 : < ---- > Update Profile Or To Change Your Password\n\r");
-		System.out.println("Press 3 : < ---- > Apply for Leave \r\n");
-		System.out.println("Press 4 : < ---- > Record of Leave \r\n");
-		System.out.println("Press 5 : < ---- > Total_Salary Of A Financial year  \r\n");
-		System.out.println("Press 0 : < ---- > LogOut i.e. Go Back To Home \n\r");
+		System.out.println();
+		System.out.println("\"------------- Welcome "+ empName + " ----------------\"");
+		System.out.println("-------------- Employee DashBord -------------------");
+		System.out.println("_____________________________________________________");
+		System.out.println("\n Please Choose an Option --------------------------\n");
+		System.out.println("Press 1 : < ---- > View Your Profile ");
+		System.out.println("Press 2 : < ---- > Update Profile And Change Your Password");
+		System.out.println("Press 3 : < ---- > Apply for Leave ");
+		System.out.println("Press 4 : < ---- > Leave Status ");
+		System.out.println("Press 5 : < ---- > Record of Leave ");
+		System.out.println("Press 6 : < ---- > Total_Salary Of A Month ");
+		System.out.println("Press 7 : < ---- > Total_Salary Of A Financial year ( Annual Salary )");
+		System.out.println("Press 0 : < ---- > LogOut i.e. Go Back To Home");
 	}
 	
    static void empLogInUI(Scanner sr) {
@@ -52,10 +54,14 @@ public abstract class EmployeeUI {
     abstract void viewYourProfileUI();
    abstract void updateProfileUI(Scanner sr);
    abstract  void changePasswordUI(Scanner sr);
-   abstract  void applyforLeaveUI(Scanner sr);
-   abstract void recordOfLeaveUI(Scanner sr);
-   abstract void totalSalaryAnnualyUI(Scanner sr);
    
+   abstract  void applyforLeaveUI(Scanner sr);
+   abstract void leaveStatus(Scanner sr);
+   abstract void recordOfLeaveUI(Scanner sr);
+   
+   abstract void totalSalaryMonthUI(Scanner sr);
+   abstract void totalSalaryAnnualyUI(Scanner sr);
+  
 	
 		public static int getEmpId() {
 			return empId;
@@ -71,36 +77,60 @@ public abstract class EmployeeUI {
 		
 
 	static void employee(Scanner sr) {
-		int choice = 0;
+		String choice = "";
 		while(logIn){
 			EmployeeUI employee = new EmployeeUIImpl();
 			employeeMenu();
 			System.out.print("Enter Your Choice : ");
-			choice = sr.nextInt();
+			choice = sr.next();
 			
-			switch(choice) {
-				case 1:
+			try {
+				switch(choice) {
+				case "1":
 					employee.viewYourProfileUI();
+					Thread.sleep(1000);
 					break;
-				case 2:
+					
+				case "2":
 					employee.updateProfileUI(sr);
+					Thread.sleep(1000);
 					break;
-				case 3:
+				case "3":
 					employee.applyforLeaveUI(sr);
+					Thread.sleep(1000);
 					break;
 					
-				case 4: 
-					employee.recordOfLeaveUI(sr);
+				case "4": 
+					employee.leaveStatus(sr);
+					Thread.sleep(1000);
+					break;
 					
-				case 5: 
+				case "5":
+					employee.recordOfLeaveUI(sr);
+					Thread.sleep(1000);
+					break;
+					
+				case "6":
+					employee.totalSalaryMonthUI(sr);
+					Thread.sleep(1000);
+					break;
+					
+				case "7":
 					employee.totalSalaryAnnualyUI(sr);
-				case 0:
+					Thread.sleep(1000);
+					break;
+					
+				case "0":
 					System.out.println("------------Thanks For Your Visit!-------------");
 					logIn = false;
 					break;
 					
 				default: 
 					System.out.println("-----Opps! Wrong choice ... please try again \r\n");
+			}
+				
+			}catch(InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

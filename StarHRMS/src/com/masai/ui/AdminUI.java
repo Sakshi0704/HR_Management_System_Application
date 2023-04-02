@@ -54,18 +54,28 @@ public abstract class AdminUI {
 		}while(i!=3||choice!=0);
 	}
 	
-	static void adminMenu() {
-		System.out.println("\n\r Please Choose an Option ------------\n\r");
-		System.out.println("Press 1 : < ---- > Add New Department \n\r");
-		System.out.println("Press 2 : < ---- > View All The Departments \n\r");
-		System.out.println("Press 3 : < ---- > View All The Employees \r\n");
-		System.out.println("Press 4 : < ---- > Update The Department \r\n");
-		System.out.println("Press 5 : < ---- > Add New Employee \n\r");
-		System.out.println("Press 6 : < ---- > Transfer employee to other department \r\n");
-		System.out.println("Press 7 : < ---- > Accept Leaves Of Employee \n\r");
-		System.out.println("Press 8 : < ---- > Reject Leaves Of Employee \n\r");
-		System.out.println("Press 9 : < ---- > Delete Department \n\r");
-		System.out.println("Press 0 : < ---- > Exit -OR- Go Back To Home \n\r");
+	static void adminMenu() throws InterruptedException {
+		System.out.println("\n\r Please Choose an Option ------------\n");
+		System.out.println("Press 1 : < ---- > Add New Department ");
+		Thread.sleep(1000);
+		System.out.println("Press 2 : < ---- > View All The Departments ");
+		Thread.sleep(1000);
+		System.out.println("Press 3 : < ---- > View All The Employees ");
+		Thread.sleep(1000);
+		System.out.println("Press 4 : < ---- > Update The Department ");
+		Thread.sleep(1000);
+		System.out.println("Press 5 : < ---- > Add New Employee ");
+		Thread.sleep(1000);
+		System.out.println("Press 6 : < ---- > Transfer employee to other department ");
+		Thread.sleep(1000);
+		System.out.println("Press 7 : < ---- > Accept Leaves or Reject Leave Of Employee ");
+		Thread.sleep(1000);
+		System.out.println("Press 8 : < ---- > Fire An Employee");
+		Thread.sleep(1000);
+		System.out.println("Press 9 : < ---- > Delete Department ");
+		Thread.sleep(1000);
+		System.out.println("Press 0 : < ---- > Exit -OR- Go Back To Home ");
+		Thread.sleep(1000);
 	}
 	
 	
@@ -76,12 +86,12 @@ public abstract class AdminUI {
 	abstract void updateDepartmentUI(Scanner sr);
 	abstract void addNewEmployeeUI(Scanner sr);
 	abstract void transferemployeetootherdepartUI(Scanner sr);
-	abstract void aceeptLeavesOfEmployeeUI(Scanner sr);
-	abstract void rejectLeavesOfEmployeeUI(Scanner sr);
+	abstract void aceeptOrRejectLeavesOfEmployeeUI(Scanner sr);
+	abstract void fireEmployeeUI(Scanner sr);
 	abstract void deleteDepartmentUI(Scanner sr);
 	
 
-	static void admin(Scanner sr) {
+	static void admin(Scanner sr) throws InterruptedException {
 		int choice = 0;
 		while(login) {
 			adminMenu();
@@ -92,38 +102,47 @@ public abstract class AdminUI {
 		    switch(choice) {
 		    		case 1:
 		    			adminUI.addNewDepartmentUI(sr);
+		    			Thread.sleep(2000);
 		    			break;
 		    		
 		    		case 2:
 		    			adminUI.viewAllDepartmentUI();
+		    			Thread.sleep(2000);
 		    			 break;
 		    		
 		    		case 3:
 		    			 adminUI.viewAllEmployeeUI(sr);
+		    			 Thread.sleep(2000);
 		    			 break;
 		    			 
 		    		case 4:
 		    			 adminUI.updateDepartmentUI(sr);
+		    			 Thread.sleep(2000);
 		    			 break;
 		    		
 		    		case 5:
 		    			 adminUI.addNewEmployeeUI(sr);
+		    			 Thread.sleep(2000);
 		    			 break;
 		    		
 		    		case 6:
 		    			adminUI.transferemployeetootherdepartUI(sr);
+		    			Thread.sleep(2000);
 		    			break;
 		    	
 		    		case 7: 
-		    			adminUI.aceeptLeavesOfEmployeeUI(sr);
+		    			adminUI.aceeptOrRejectLeavesOfEmployeeUI(sr);
+		    			Thread.sleep(2000);
 		    			break;
 		    		
 		    		case 8:
-		    			adminUI.rejectLeavesOfEmployeeUI(sr);
+		    			adminUI.fireEmployeeUI(sr);
+		    			Thread.sleep(2000);
 		    			break;
 		    			
 		    		case 9:
 		    			 adminUI.deleteDepartmentUI(sr);
+		    			 Thread.sleep(2000);
 		    			 break;
 		 
 		    	

@@ -13,6 +13,8 @@ public class EmployeeDTOImpl implements EmployeeDTO {
 	private DepartmentDTO dept;
 	LocalDate date = LocalDate.now();
 	
+	
+	
 	public EmployeeDTOImpl() {
 		
 	}
@@ -114,8 +116,8 @@ public class EmployeeDTOImpl implements EmployeeDTO {
 
 	@Override
 	public String toString() {
-		return "empId = " + empId + ", ename = " + ename + ", email = " + email + ", password = " + password
-				+ ", empAddress = " + empAddress + ", salary = " + salary + ", deptId = " + dept.getDeptID()+"deptName = " +dept.getDiptname()+ ", date=" + date + "]";
+		return " empId = " + empId + "\n ename = " + ename + "\n email = " + email + "\n password = " + password
+				+ "\n empAddress = " + empAddress + "\n salary = " + salary + "\n deptId = " + dept.getDeptID()+"\n deptName = " +dept.getDiptname()+ ", date=" + date;
 	}
 
 	
