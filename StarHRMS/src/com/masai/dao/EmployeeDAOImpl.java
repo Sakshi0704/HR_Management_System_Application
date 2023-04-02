@@ -101,7 +101,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		   try {
 				conn = DBUtility.getConnectionToDataBase();
 				
-				String query = "update employee set password = ? where (password = ? & eId = ?) AND is_delete = 0";
+				String query = "update employee set password = ? where (password = ? AND eId = ?) AND is_delete = 0";
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setString(1, oldPassword);
 				ps.setString(2, updatedPassword);

@@ -38,26 +38,28 @@ public class EmployeeUIImpl extends EmployeeUI{
 	public void updateProfileUI(Scanner sr) {
 		System.out.println("................................");
 		EmployeeUIImpl.updateMenu();
-		int choice = 0;
+		String choice = "0";
 		do {
 			
 			System.out.print("Enter your selection: ");
-			choice = sr.nextInt();
+			choice = sr.next();
 			switch(choice) {
-				case 1:
-					System.out.println("Sorry this service is termery close please connect with admin deptment");
+				case "1":
+					System.out.println("    Sorry this service is termery close please connect with admin department");
 					break;
-				case 2:
-					System.out.println("Sorry this service is termery close please connect with admin deptment");
+				case "2":
+					System.out.println("    Sorry this service is termery close please connect with admin department");
 					break;
-				case 3:
+				case "3":
 					changePasswordUI(sr);
 					break;
-				case 0:
-					System.out.println("Thank you -----");
+				case "4":
+					System.out.println("----Thank you ----");
+				default:
+					System.out.println(" Opps!! Wrong choice !! Please try again with correct choice");
 			}
 			
-		}while(choice!=0);
+		}while(!choice.equals("4"));
 		
 	}
 
