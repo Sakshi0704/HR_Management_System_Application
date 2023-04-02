@@ -1,11 +1,14 @@
 package com.masai.ui;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 import com.masai.dao.EmployeeDAO;
 import com.masai.dao.EmployeeDAOImpl;
 import com.masai.dto.EmployeeDTO;
+import com.masai.dto.LeaveDTO;
+import com.masai.dto.LeaveDTOImpl;
 import com.masai.exception.NoSuchRecordFoundException;
 import com.masai.exception.SomthingWentWrongException;
 
@@ -23,8 +26,8 @@ public class EmployeeUIImpl extends EmployeeUI{
 		
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 			try {
-				List<EmployeeDTO> employee = empDAO.viewYourProfile(EmployeeUI.getEmpId());
-				employee.stream().forEach(System.out::println);
+				EmployeeDTO employee = empDAO.viewYourProfile(EmployeeUI.getEmpId());
+				System.out.println(employee);
 				
 			} catch (NoSuchRecordFoundException | SomthingWentWrongException e) {
 				System.out.println(e);
@@ -77,23 +80,121 @@ public class EmployeeUIImpl extends EmployeeUI{
 		System.out.println("============================================");
 		
 	}
+	
+	private static void leaveMenu() {
+		System.out.println("Press 1 : for Complementary Leave");
+		System.out.println("Press 2 : for Sick Leave");
+		System.out.println("Press 3 : for Extra Leave");
+	}
 
 	@Override
 	public void applyforLeaveUI(Scanner sr) {
-		// TODO Auto-generated method stub
+		System.out.println("=============================================");
+		System.out.println("Apply for Leave ....");
+		int type = 0;
+		do {
+			leaveMenu();
+				System.out.println("Enter type of leave : ");
+				type = sr.nextInt();
+		}while(type!=1&&type!=2&&type!=3);
+			
+		System.out.println("Enter How Many Days you want to take leave : ");
+		int days_Of_Leave = sr.nextInt();
+		
+		sr.nextLine();
+		
+		System.out.println("Reason for leave : ");
+		String reason = sr.nextLine();
+
+		LeaveDTO leave = new LeaveDTOImpl(days_Of_Leave,type,reason);
+				
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		try {
+			empDAO.applyForLeave(leave,EmployeeUI.getEmpId());
+			System.out.println("Apply for Leave Successfully");
+			
+		}catch(SomthingWentWrongException ex){
+			System.out.println(ex);
+		}
+		System.out.println("============================================");
+		
+	}
+	
+	@Override
+	void leaveStatus(Scanner sr) {
+		System.out.println("=============================================");
+		System.out.println("Status of Leave of top two requested ....");
+		
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		try {
+			List<LeaveDTO>  list = empDAO.leaveStatus(EmployeeUI.getEmpId());
+			list.stream().forEach(System.out::println); // need to work on it
+			
+		}catch(NoSuchRecordFoundException|SomthingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+		System.out.println("=============================================");
 		
 	}
 
 	@Override
 	public void recordOfLeaveUI(Scanner sr) {
-		// TODO Auto-generated method stub
+		System.out.println("=============================================");
+		System.out.println("Leave History Record ......");
 		
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		try {
+			List<LeaveDTO>  list = empDAO.recordOfLeave(EmployeeUI.getEmpId());
+			list.stream().forEach(System.out::println);   // need to work on it
+			
+		}catch(NoSuchRecordFoundException|SomthingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+		System.out.println("=============================================");
 	}
 
 	@Override
-	public void totalSalaryAnnualyUI(Scanner sr) {
-		// TODO Auto-generated method stub
+	void totalSalaryMonthUI(Scanner sr) {
+		System.out.println("=============================================");
+		System.out.println("To Get Selective Month Salary......");
+		System.out.println("Enter Starting date of The month (yyyy-mm-dd): ");
+		LocalDate startDate = LocalDate.parse(sr.next());
+		System.out.println("Enter End date of The month (yyyy-mm-dd):  ");
+		LocalDate endDate = LocalDate.parse(sr.next());
+		
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		try {
+			double salary = empDAO.totalSalaryOfMonth(startDate,endDate,EmployeeUI.getEmpId());
+			System.out.println(salary);  // need to work on it
+			
+		}catch(SomthingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+		System.out.println("=============================================");
 		
 	}
+	
+	@Override
+	public void totalSalaryAnnualyUI(Scanner sr) {
+		System.out.println("=============================================");
+		
+		System.out.println(" Annual Salary Record of Employee......");
+		
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		try {
+			double salary = empDAO.totalSalaryAnnualy(EmployeeUI.getEmpId());
+			System.out.println(salary);  // need to work on it
+			
+		}catch(SomthingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+		System.out.println("=============================================");
+		
+	}
+	
 
 }

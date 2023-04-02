@@ -9,8 +9,8 @@ public class MainUI {
 		int choice = 0;
 		do {
 			System.out.println("====================================================");
-			System.out.println("Press 1: LogIn To Admin panel         		");
-			System.out.println("Press 0: Wants to go back to Home Page		");
+			System.out.println("Press 1: < ---- > LogIn To Admin panel         		");
+			System.out.println("Press 0: < ---- > Wants to go back to Home Page		");
 			System.out.println("====================================================");
 			System.out.println("Enter your choice : ");
 			choice = sr.nextInt();
@@ -31,8 +31,8 @@ public class MainUI {
 		int choice = 0;
 		do {
 			System.out.println("====================================================");
-			System.out.println("Press 1: LogIn To Employee Page         		");
-			System.out.println("Press 0: Wants to go back to Home Page		");
+			System.out.println("Press 1: < ---- >  LogIn To Employee Page         		");
+			System.out.println("Press 0: < ---- >  Wants to go back to Home Page		");
 			System.out.println("====================================================");
 			System.out.println("Enter your choice : ");
 			choice = sr.nextInt();
@@ -62,9 +62,9 @@ public class MainUI {
 		int choice = 0;
 		do {
 			System.out.println("----WHERE YOU WANT TO VISIT----");
-			System.out.println("Press 1: ---> Admin Page ");
-			System.out.println("Press 2: ----> Employee Page ");
-			System.out.println("Press 3: ----> Exit ");
+			System.out.println("Press 1: < ---- > Admin Page ");
+			System.out.println("Press 2: < ---- > Employee Page ");
+			System.out.println("Press 0: < ---- > Exit ");
 			System.out.print("Enter your selection : ");
 			choice = sr.nextInt();
 			switch(choice) {
