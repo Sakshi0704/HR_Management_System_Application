@@ -101,15 +101,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		   try {
 				conn = DBUtility.getConnectionToDataBase();
 				
-				String query = "update employee set password = ? where (password = ? & eId = ?) AND is_delete = 0";
+				String query = "update employee set password = ? where password = ? AND eId = ? AND is_delete = 0";
 				PreparedStatement ps = conn.prepareStatement(query);
-				ps.setString(1, oldPassword);
-				ps.setString(2, updatedPassword);
+				ps.setString(1, updatedPassword);
+				ps.setString(2, oldPassword);
 				ps.setInt(3,empId);
 				
 				int rs = ps.executeUpdate();
 				if(rs==0) {
-					throw new NoSuchRecordFoundException("Invalid Details");
+					throw new NoSuchRecordFoundException("Invalid Input");
 				}
 				
 			} catch (ClassNotFoundException | SQLException e) {
@@ -163,29 +163,38 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public List<LeaveDTO> leaveStatus(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException {
+	public LeaveDTO leaveStatus(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException {
 		
 		 Connection conn = null;
-		   List<LeaveDTO> list = new ArrayList<>();  
+		   LeaveDTO empLeave = null; 
 		   try {
 				conn = DBUtility.getConnectionToDataBase();
-				// need to work.................................//
-				//String query = "select days_of_leave,type,reason,date_of_leave,status from empleave where eId=? order by date_of_leave desc limit 2";
-				
+			
+			//	select days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename from empleave el left join employee e ON el.eId = e.eId where e.eId = 1 order by date_of_leave desc limit 2;
 				String query = "select days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename "
-						+ "from empleave el LEfT JOIN employee e where eId = ?"
-						+ " ON el.eId = e.eId order by date_of_leave desc limit 2";
+						+ "from empleave el LEfT JOIN employee e ON el.eId = e.eId where e.eId = ? "
+						+ "order by date_of_leave desc limit 1";
 				
 				
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setInt(1, empId);
 				ResultSet rs = ps.executeQuery();
 				if(DBUtility.isResultSetEmpty(rs)) {
-					throw new NoSuchRecordFoundException("There is no such record avaiable");
+					throw new NoSuchRecordFoundException("There is no record avaiable for you");
 				}
 				while(rs.next()) {
-					list.add(new LeaveDTOImpl(rs.getInt(2),rs.getInt(3)
-							  ,rs.getString(4),rs.getDate(5).toLocalDate(),rs.getString(6),rs.getString(7),rs.getString(8)));
+					
+//					+---------------+------+----------+---------------+---------+-------+--------+
+//					| days_of_leave | type | reason   | date_of_leave | status  | empId | ename  |
+//					+---------------+------+----------+---------------+---------+-------+--------+
+//					|            12 |    3 | marriage | 2023-05-04    | panding | e001  | sakshi |
+//					|             2 |    3 | marriage | 2023-04-02    | panding | e001  | sakshi |
+//					+---------------+------+----------+---------------+---------+-------+--------+
+//					2 rows in set (0.00 sec)
+					
+					
+					empLeave = new LeaveDTOImpl(rs.getInt(1),rs.getInt(2)
+							  ,rs.getString(3),rs.getDate(4).toLocalDate(),rs.getString(5),rs.getString(6),rs.getString(7));
 				}
 				
 			} catch (ClassNotFoundException |SQLException e) {
@@ -199,7 +208,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				}
 			}
 		  
-		   return list;
+		   return empLeave;
 		   
 	}
 
@@ -209,22 +218,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		   List<LeaveDTO> list = new ArrayList<>();  
 		   try {
 				conn = DBUtility.getConnectionToDataBase();
-				// need to work.................................//
-				//String query = "select days_of_leave,type,reason,date_of_leave,status from empleave where eId=? order by date_of_leave desc";
-
+				//select days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename from empleave el LEfT JOIN employee e ON el.eId = e.eId AND e.eId = ? AND el.status = 'Accept' order by date_of_leave desc limit 3;
 				String query = "select days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename "
-						+ "from empleave el LEfT JOIN employee e where eId = ?"
-						+ " ON el.eId = e.eId order by date_of_leave desc limit 2";
+						+ "from empleave el LEfT JOIN employee e ON el.eId = e.eId WHERE e.eId = ? AND el.status = 'Accept'"
+						+ "order by date_of_leave desc limit 3";
 				
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setInt(1, empId);
 				ResultSet rs = ps.executeQuery();
 				if(DBUtility.isResultSetEmpty(rs)) {
-					throw new NoSuchRecordFoundException("There is no such record avaiable");
+					throw new NoSuchRecordFoundException("There is no record avaiable");
 				}
 				while(rs.next()) {
-					list.add(new LeaveDTOImpl(rs.getInt(2),rs.getInt(3)
-							  ,rs.getString(4),rs.getDate(5).toLocalDate(),rs.getString(6),rs.getString(7),rs.getString(8)));
+					list.add(new LeaveDTOImpl(rs.getInt(1),rs.getInt(2)
+							  ,rs.getString(3),rs.getDate(4).toLocalDate(),rs.getString(5),rs.getString(6),rs.getString(7)));
 				}
 				
 			} catch (ClassNotFoundException |SQLException e) {

@@ -30,5 +30,7 @@ public interface EmployeeDTO {
 	public String getEmpAddress();
 
 	public void setEmpAddress(String empAddress);
+
+	public String toString1();
 	
 }

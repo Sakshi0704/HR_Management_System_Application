@@ -131,8 +131,14 @@ public class LeaveDTOImpl implements LeaveDTO {
 
 	@Override
 	public String toString() {
-		return "LeaveDTOImpl [leaveId=" + leaveId + ", empId=" + empId + ", empName=" + empName + ", days_of_leave=" + days_of_leave + ", type=" + type + ", reason="
-				+ reason + ", date=" + date + ", status=" + status  + "]";
+		return "leaveId = " + leaveId + ", empId = " + empId + ", empName = " + empName + ", days_of_leave = " + days_of_leave + ", type = " + type + ", reason = "
+				+ reason + ", date = " + date + ", status = " + status;
+	}
+	
+	@Override
+	public String toString1() {
+		return "leaveId = " + leaveId + ",\n empId = " + empId + ",\n empName = " + empName + ",\n days_of_leave = " + days_of_leave + ",\n type = " + type + ",\n reason = "
+				+ reason + ",\n date = " + date + ",\n status = " + status;
 	}
 	
 }
