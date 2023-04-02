@@ -37,7 +37,19 @@
     <li>Can See The Total Salary Of A Financial Year</li>
 </ul>
 <br>
-    
+
+## Flow Chart
+<br>
+
+![First](https://user-images.githubusercontent.com/112800906/229370583-49116f33-c83d-43ba-8ef0-993ea84fb65c.png)
+
+![Admin](https://user-images.githubusercontent.com/112800906/229370514-2003f7ee-14ed-4dc9-9cc3-17ca0016621f.png)
+
+![Employee1](https://user-images.githubusercontent.com/112800906/229370518-47080c02-2a6f-44ea-9ada-094557969802.png)
+
+
+
+
 ## Technology & Tools used
 
 <ul type="square">
@@ -61,7 +73,7 @@
 
 ## ER Diagram
     
-![Untitled (5)](https://user-images.githubusercontent.com/112800906/229357972-188b95eb-f9a7-4c4c-87cb-d2a3dcd6c6dc.png))
+![Untitled (5)](https://user-images.githubusercontent.com/112800906/229357972-188b95eb-f9a7-4c4c-87cb-d2a3dcd6c6dc.png)
 
 <br>
         
