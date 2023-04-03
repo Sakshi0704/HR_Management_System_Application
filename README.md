@@ -41,13 +41,13 @@
 ## Flow Chart
 <br>
 
-![First](https://user-images.githubusercontent.com/112800906/229370583-49116f33-c83d-43ba-8ef0-993ea84fb65c.png)
 
-![Admin](https://user-images.githubusercontent.com/112800906/229370514-2003f7ee-14ed-4dc9-9cc3-17ca0016621f.png)
-
-![Employee1](https://user-images.githubusercontent.com/112800906/229370518-47080c02-2a6f-44ea-9ada-094557969802.png)
+![First1](https://user-images.githubusercontent.com/112800906/229387511-8f2ea91e-4f99-4f9f-8ee4-985ad1708ce7.png)
 
 
+![second](https://user-images.githubusercontent.com/112800906/229387524-1c61e361-1895-453c-ba46-974e49252c2c.png)
+
+![third](https://user-images.githubusercontent.com/112800906/229387545-5a342312-1f94-44c2-815b-d338c660b82f.png)
 
 
 ## Technology & Tools used
