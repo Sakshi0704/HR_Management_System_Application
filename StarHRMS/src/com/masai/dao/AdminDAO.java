@@ -20,18 +20,21 @@ public interface AdminDAO {
 			throws SomthingWentWrongException, NoSuchRecordFoundException;
 	public List<EmployeeDTO> viewAllEmployee() throws NoSuchRecordFoundException, SomthingWentWrongException;
 
-	void addNewEmployee(EmployeeDTO employee, int deptID) throws SomthingWentWrongException;
+	void addNewEmployee(EmployeeDTO employee, String deptID) throws SomthingWentWrongException;
 
 	void deleteDepartment(String deptID) throws SomthingWentWrongException;
 
-	void transferemployeetootherdepart(int eId, int did)throws SomthingWentWrongException;
+	void transferemployeetootherdepart(String empId, String deptID)throws SomthingWentWrongException;
 
-	void fireEmployee(int eId)throws SomthingWentWrongException;
+	void fireEmployee(String empId)throws SomthingWentWrongException;
 
 	Map<Integer, LeaveDTO> getListOfLeaveRequst()throws SomthingWentWrongException;
 
 	void acceptLeaveOfEmployee(int leaveId)throws SomthingWentWrongException;
 
 	void rejectLeaveOfEmployee(int leaveId)throws SomthingWentWrongException;
+
+
+
 
 }

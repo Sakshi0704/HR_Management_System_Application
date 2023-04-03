@@ -154,18 +154,30 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void addNewEmployee(EmployeeDTO employee,int did) throws SomthingWentWrongException {
+	public void addNewEmployee(EmployeeDTO employee, String deptID) throws SomthingWentWrongException {
 		 
 		Connection conn = null;
-		
+		int did = 0;
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "";
 			
-			 query = "insert into employee (empId,ename,email,empAddress,date_of_joining,salary_per_month,did) values (?,?,?,?,?,?,?)";
-			
-
+			String query = "select did from dept where deptID = ? AND is_delete = 0";
 			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setString(1, deptID);
+			ResultSet rs = ps.executeQuery();
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Wrong DeptID!! Please Check The Department ID");
+			}
+			
+			while(rs.next()) {
+				did = rs.getInt(1);
+			}
+			 
+			
+			query = "insert into employee (empId,ename,email,empAddress,date_of_joining,salary_per_month,did) values (?,?,?,?,?,?,?)";
+			
+			ps = conn.prepareStatement(query);
 			ps.setString(1, employee.getEmpId());
 			ps.setString(2, employee.getEname());
 			ps.setString(3,employee.getEmail());
@@ -174,7 +186,11 @@ public class AdminDAOImpl implements AdminDAO{
 			ps.setDouble(6, employee.getSalary());
 			ps.setInt(7, did);
 			
-			ps.executeUpdate();
+			int i = ps.executeUpdate();
+			if(i==0) {
+				throw new SomthingWentWrongException("Wrong Inputs !! \n\tPlease check details properly before add any employee \n\t Thank You");
+			}
+			
 			
 		}catch(SQLException | ClassNotFoundException ex) {
 			throw new SomthingWentWrongException(ex.getMessage());
@@ -194,17 +210,34 @@ public class AdminDAOImpl implements AdminDAO{
 	public void deleteDepartment(String deptID) throws SomthingWentWrongException {
 		
 		Connection conn = null;
+		int did = 0;
 		
 		try {
+			
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "update dept set is_delete = 1 where deptID=? AND did != 1 AND is_delete = 0";
+			String query = "select did from dept where deptID = ?";
 			PreparedStatement ps = conn.prepareStatement(query);
 			
-			ps.setString(1, deptID);
+			ps.setString(1,deptID);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Wrong Department Id ");
+			}
+			
+			while(rs.next()) {
+				did = rs.getInt(1);
+			}
+			
+			query = "update dept set is_delete = 1 where did = ? AND did != 1 AND is_delete = 0";
+			ps = conn.prepareStatement(query);
+			
+			ps.setInt(1, did);
 			int n = ps.executeUpdate();
 			
 			if(n==0) {
-				throw new SomthingWentWrongException("Already deleted Or No such deptId is avaiable");
+				throw new SomthingWentWrongException("No Record Found To Delete");
 			}
 			
 		}catch(SQLException | ClassNotFoundException ex) {
@@ -222,21 +255,56 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void transferemployeetootherdepart(int eId , int did) throws SomthingWentWrongException {
+	public void transferemployeetootherdepart(String empId, String deptID) throws SomthingWentWrongException {
 		
 		Connection conn = null;
+		int did = 0;
+		int eId = 0;
 		
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "update employee set did = ? where eId = ?";
+		
+			String query = "select did from dept where deptID = ? AND is_delete = 0";
 			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setString(1,deptID);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Wrong Department Id To Transfer. There is no such Department avaiable");
+			}
+			
+			while(rs.next()) {
+				did = rs.getInt(1);
+			}
+			
+			
+			 query = "select eId from employee where empId = ?";
+			 ps = conn.prepareStatement(query);
+			
+			ps.setString(1,empId);
+			
+			rs = ps.executeQuery();
+			
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Wrong Employee Id ! Please Check The Employee Id ");
+			}
+			
+			while(rs.next()) {
+				eId = rs.getInt(1);
+			}
+			
+			query = "update employee set did = ? where eId = ? AND is_delete = 0";
+			ps = conn.prepareStatement(query);
+			
 			ps.setInt(1, did);
 			ps.setInt(2, eId);
 			
 			int n = ps.executeUpdate();
 			
 			if(n==0) {
-				throw new SomthingWentWrongException("Unable to update deparment beacause of wrong input");
+				throw new SomthingWentWrongException("The employee doesn't belong to our organisation. Or Fired employee");
 			}
 			
 		}catch(SQLException | ClassNotFoundException ex) {
@@ -254,19 +322,35 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void fireEmployee(int eId) throws SomthingWentWrongException {
+	public void fireEmployee(String empId) throws SomthingWentWrongException {
 		Connection conn = null;
+		int eId = 0;
 		
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "update employee set e.is_delete = 1, where eId = ? && is_delete = 0";
+			String query = "select eId from employee where empId = ?";
 			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setString(1,empId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Wrong Employee Id ");
+			}
+			
+			while(rs.next()) {
+				eId = rs.getInt(1);
+			}
+			query = "update employee set is_delete = 1 where eId = ? And is_delete = 0";
+			ps = conn.prepareStatement(query);
+			
 			ps.setInt(1, eId);
 			
 			int n = ps.executeUpdate();
 			
 			if(n==0) {
-				throw new SomthingWentWrongException("Unable to fire employee");
+				throw new SomthingWentWrongException("No Record Found To Fire The Employee");
 			}
 			
 			

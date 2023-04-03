@@ -150,13 +150,13 @@ public class AdminUIImpl extends AdminUI {
 		System.out.println("Enter New Employee Detials To Add In Record");
 		
 		EmployeeDTO employee = new EmployeeDTOImpl();
-		System.out.print("Enter Employee ID : ");
+		System.out.print("Enter Unique Employee ID : ");
 		employee.setEmpId(sr.next());
 		
 		System.out.print("Enter Employee Name ");
 		employee.setEname(sr.next());
 	
-		System.out.print("Enter Employee Email : ");
+		System.out.print("Enter Unique Employee Email : ");
 		employee.setEmail(sr.next());
 		
 		System.out.print("Enter Employee Address : ");
@@ -169,17 +169,14 @@ public class AdminUIImpl extends AdminUI {
 		System.out.print("Enter Employee Salary_Per_Month : ");
 		employee.setSalary(sr.nextDouble());
 		
-		int did = 1;
-		System.out.print("Wants to add deptId ( Y / N ) : ");
-		if(sr.next().toUpperCase().equals("Y")) {
-			System.out.print("Enter deptId ( System - Generated (did)):  ");
-			did = sr.nextInt();
-		}
+		
+		System.out.print("Enter deptId (Created By Admin (deptId)):  ");
+		String deptID = sr.next();
 		
 		AdminDAO adminDAO = new AdminDAOImpl();
 		
 		try {
-			adminDAO.addNewEmployee(employee,did);
+			adminDAO.addNewEmployee(employee,deptID);
 			System.out.println("Add New Employee Successfully-----");
 		}catch(Exception ex) {
 			System.out.println(ex);
@@ -192,21 +189,21 @@ public class AdminUIImpl extends AdminUI {
 	void transferemployeetootherdepartUI(Scanner sr) {
 		// TODO Auto-generated method stub
 		System.out.println("===========================================");
-		System.out.println("Enter employee Id : ");
-		int eId = sr.nextInt();
+		System.out.println("Enter employee Id (Created By Admin (empId)): ");
+		String empId = sr.next();
 		
-		System.out.println("Enter deptID In which Employee need to be Transfer : ");
-		int did = sr.nextInt();
+		System.out.println("Enter deptID (Created By Admin (deptId)) In which Employee need to be Transfer : ");
+		String deptID = sr.next();
 		
 		AdminDAO adminDAO = new AdminDAOImpl();
 		
 		try {
-			adminDAO.transferemployeetootherdepart(eId,did);
+			adminDAO.transferemployeetootherdepart(empId,deptID);
 			System.out.println("Updated deptId into Employee record Successfully.........");
 			
 		}catch(Exception ex) {
 			System.out.println(ex);
-			System.out.println("Unable to updated deptId of employee ! please try again leter.........");
+			//System.out.println("Unable to updated deptId of employee ! please try again leter.........");
 		}
 		
 		System.out.println("==========================");
@@ -217,7 +214,7 @@ public class AdminUIImpl extends AdminUI {
 	@Override
 	void deleteDepartmentUI(Scanner sr) {
 		System.out.println("===========================================");
-		System.out.println("Enter deptID To Delete from Record");
+		System.out.println("Enter deptID (Created By Admin (deptId)) To Delete from Record");
 		String deptID = sr.next();
 		
 		AdminDAO adminDAO = new AdminDAOImpl();
@@ -228,7 +225,7 @@ public class AdminUIImpl extends AdminUI {
 			
 		}catch(Exception ex) {
 			System.out.println(ex);
-			System.out.println("Unable to Delete Department.........");
+			//System.out.println("Unable to Delete Department.........");
 		}
 		
 		System.out.println("==========================");
@@ -241,6 +238,7 @@ public class AdminUIImpl extends AdminUI {
 		System.out.println("Want to update.................");
 		System.out.println(" Press 1 --> To Accept Leave of Employee ");
 		System.out.println(" Press 2 --> To Reject Leave of Employee ");
+		System.out.println(" Press 0 --> To Go Back ");
 		System.out.println("_______________________________________________");
 		
 	}
@@ -257,13 +255,13 @@ public class AdminUIImpl extends AdminUI {
 			});
 			System.out.println("________________________________________");
 			int leaveId = 0;
-			int choice = 0;
+			String choice = "0";
 			do {
 				leavesMenu();
 				System.out.println("Enter your choice : ");
-				choice = sr.nextInt();
+				choice = sr.next();
 				switch(choice) {
-					case 1:
+					case "1":
 						do {
 							System.out.println("Enter The LeaveId of which you want to Accept: ");
 							leaveId = sr.nextInt();
@@ -277,7 +275,7 @@ public class AdminUIImpl extends AdminUI {
 									
 						}while(!map.containsKey(leaveId));
 						
-					case 2:
+					case "2":
 						do {
 							System.out.println("Enter The LeaveId of which you want to Reject: ");
 							leaveId = sr.nextInt();
@@ -290,12 +288,16 @@ public class AdminUIImpl extends AdminUI {
 							}
 									
 						}while(!map.containsKey(leaveId));
+						
+					case "3":
+						System.out.println("Byee - Byee");
+						break;
 					
 					default:
 						System.out.println("Opps! please Enter the valid choice");
 								
 				}
-			}while(choice != 1 && choice != 2);
+			}while(!choice.equals("1") && !choice.equals("1") && !choice.equals("1"));
 			
 		}catch(Exception ex) {
 			System.out.println(ex);
@@ -307,18 +309,19 @@ public class AdminUIImpl extends AdminUI {
 	@Override
 	void fireEmployeeUI(Scanner sr) {
 		System.out.println("===========================================");
-		System.out.println("Enter employee Id ( on record ) = ");
-		int eId = sr.nextInt();
+		System.out.println("Enter employee Id (Created By Admin (empId)) = ");
+		
+		String empId = sr.next();
 		
 		AdminDAO adminDAO = new AdminDAOImpl();
 		
 		try {
-			adminDAO.fireEmployee(eId);
-			System.out.println("Delete Department Successfully.........");
+			adminDAO.fireEmployee(empId);
+			System.out.println("Fire Employee Successfully.........");
 			
 		}catch(Exception ex) {
 			System.out.println(ex);
-			System.out.println("Unable to Delete Department.........");
+//			System.out.println("Unable to Delete Department.........");
 		}
 		
 		System.out.println("==========================");

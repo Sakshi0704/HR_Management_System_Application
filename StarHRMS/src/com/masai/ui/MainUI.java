@@ -10,7 +10,7 @@ public class MainUI {
 	static void adminLink(Scanner sr) throws InterruptedException {
 		String choice = "0";
 		do {
-			System.out.println(ConsoleColor.RED + "====================================================");
+			System.out.println(ConsoleColor.BANANA_YELLOW + "====================================================" +ConsoleColor.RESET);
 			System.out.println("Press 1: < ---- > LogIn To Admin panel         		");
 			System.out.println("Press 0: < ---- > Wants to go back to Home Page		");
 			System.out.println("====================================================");
