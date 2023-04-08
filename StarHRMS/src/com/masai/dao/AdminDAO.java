@@ -16,7 +16,7 @@ public interface AdminDAO {
 
 	List<DepartmentDTO> viewAllDepartment()throws SomthingWentWrongException,NoSuchRecordFoundException;
 
-	void updateDepartmentAllDetails(int oldDeptID, String deptId, String deptName)
+	void updateDepartmentAllDetails(String oldDeptID, String deptId, String deptName)
 			throws SomthingWentWrongException, NoSuchRecordFoundException;
 	public List<EmployeeDTO> viewAllEmployee() throws NoSuchRecordFoundException, SomthingWentWrongException;
 

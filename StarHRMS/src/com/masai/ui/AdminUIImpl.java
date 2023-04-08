@@ -33,7 +33,7 @@ public class AdminUIImpl extends AdminUI {
 			adminDAO.addNewDepartment(deptId,deptName);
 			System.out.println("Add New Department Successfully-----");
 		}catch(Exception ex) {
-			System.out.println(ex);
+			//System.out.println(ex);
 			System.out.println("Unable to add new Department Successfully");
 		}
 		
@@ -52,7 +52,7 @@ public class AdminUIImpl extends AdminUI {
 			list.stream().forEach(System.out::println);
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 		}
 		
 		System.out.println("==========================");
@@ -70,7 +70,7 @@ public class AdminUIImpl extends AdminUI {
 			list.stream().forEach(System.out::println);
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println("There is no record to view...");
 		}
 		
 		System.out.println("==========================");
@@ -123,8 +123,8 @@ public class AdminUIImpl extends AdminUI {
 	
 	void updateDepartmentAllDetailsUI(Scanner sr) {
 		System.out.println("==========================");
-		System.out.print("Enter Department Id ( System - Generated (did)) : ");
-		int oldDeptID = sr.nextInt();
+		System.out.print("Enter Current Department Id ( Created By Admin (deptId)) : ");
+		String oldDeptID = sr.next();
 		System.out.println("Enter Updated Department Details........");
 		System.out.print("Enter Updated Department ID ( Created By Admin (deptId)) : ");
 		String deptId = sr.next();
@@ -163,9 +163,12 @@ public class AdminUIImpl extends AdminUI {
 		employee.setEmpAddress(sr.next());
 
 		System.out.print("Enter Employee Joing_Date (yyyy-mm-xx) : ");
-		employee.setDate(LocalDate.parse(sr.next())); 
-		
-		
+		try {
+			employee.setDate(LocalDate.parse(sr.next()));
+		}catch(Exception ex ) {
+			System.out.println(ex.getMessage());
+		}
+		 
 		System.out.print("Enter Employee Salary_Per_Month : ");
 		employee.setSalary(sr.nextDouble());
 		
@@ -202,7 +205,7 @@ public class AdminUIImpl extends AdminUI {
 			System.out.println("Updated deptId into Employee record Successfully.........");
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 			//System.out.println("Unable to updated deptId of employee ! please try again leter.........");
 		}
 		
@@ -224,7 +227,7 @@ public class AdminUIImpl extends AdminUI {
 			System.out.println("Delete Department Successfully.........");
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 			//System.out.println("Unable to Delete Department.........");
 		}
 		
@@ -250,10 +253,13 @@ public class AdminUIImpl extends AdminUI {
 		Map<Integer,LeaveDTO> map = null;
 		try {
 			map = adminDAO.getListOfLeaveRequst();
+			System.out.println("List Of Panding Leave .......\n");
 			map.forEach((i,obj) -> {
-				System.out.println(i + " " + obj.toString());
+				System.out.println("Leave_Id : "+i + " -----> " + obj.toString());
+				System.out.println();
 			});
 			System.out.println("________________________________________");
+			Thread.sleep(1000);
 			int leaveId = 0;
 			String choice = "0";
 			do {
@@ -274,6 +280,7 @@ public class AdminUIImpl extends AdminUI {
 							}
 									
 						}while(!map.containsKey(leaveId));
+						break;
 						
 					case "2":
 						do {
@@ -288,8 +295,9 @@ public class AdminUIImpl extends AdminUI {
 							}
 									
 						}while(!map.containsKey(leaveId));
+						break;
 						
-					case "3":
+					case "0":
 						System.out.println("Byee - Byee");
 						break;
 					
@@ -297,11 +305,11 @@ public class AdminUIImpl extends AdminUI {
 						System.out.println("Opps! please Enter the valid choice");
 								
 				}
-			}while(!choice.equals("1") && !choice.equals("1") && !choice.equals("1"));
+			}while(!choice.equals("1") && !choice.equals("2") && !choice.equals("0"));
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
-			System.out.println("There is no record to found.........");
+			System.out.println(ex.getMessage());
+			//System.out.println("There is no record to found.........");
 		}
 		
 
@@ -320,7 +328,7 @@ public class AdminUIImpl extends AdminUI {
 			System.out.println("Fire Employee Successfully.........");
 			
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 //			System.out.println("Unable to Delete Department.........");
 		}
 		

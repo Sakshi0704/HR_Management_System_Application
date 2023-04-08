@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import com.masai.color.ConsoleColor;
 import com.masai.dao.EmployeeDAO;
 import com.masai.dao.EmployeeDAOImpl;
 import com.masai.dto.EmployeeDTO;
@@ -15,7 +16,7 @@ import com.masai.exception.SomthingWentWrongException;
 public class EmployeeUIImpl extends EmployeeUI{
 
 	static void updateMenu() {
-		System.out.println("Select your choice want you want to update ............");
+		System.out.println(ConsoleColor.YELLOW+"Select your choice want you want to update ............"+ConsoleColor.RESET);
 		System.out.println("Press 1: Address");
 		System.out.println("Press 2: emailId");
 		System.out.println("Press 3: Password");
@@ -56,7 +57,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 					break;
 					
 				default: 
-					System.out.println("  Opps !! Wrong Choice !! Please Enter Correct Choice..");
+					System.out.println(" Opps !! Wrong Choice !! Please Enter Correct Choice..");
 			}
 			
 		}while(!choice.equals("1")&&!choice.equals("2")&&!choice.equals("3"));
@@ -74,7 +75,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
 			empDAO.changePassword(oldPassword,updatedPassword,EmployeeUI.getEmpId());
-			System.out.println("Update Successfull");
+			System.out.println(ConsoleColor.YELLOW+"Update Successfull"+ConsoleColor.RESET);
 			
 		}catch(NoSuchRecordFoundException | SomthingWentWrongException ex){
 			System.out.println(ex);
@@ -165,8 +166,9 @@ public class EmployeeUIImpl extends EmployeeUI{
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
 			List<LeaveDTO>  list = empDAO.recordOfLeave(EmployeeUI.getEmpId());
+			System.out.println(ConsoleColor.YELLOW+"- - - - - - - - - - - - - - - - - - - - - - - -"+ConsoleColor.RESET);
 			list.stream().forEach(System.out::println);   // need to work on it
-			
+			System.out.println(ConsoleColor.YELLOW+"- - - - - - - - - - - - - - - - - - - - - - - -"+ConsoleColor.RESET);
 		}catch(NoSuchRecordFoundException|SomthingWentWrongException ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -175,20 +177,15 @@ public class EmployeeUIImpl extends EmployeeUI{
 	}
 
 	@Override
-	void totalSalaryMonthUI(Scanner sr) {
+	void totalSalaryMonthUI(Scanner sr){
 		System.out.println("=============================================");
-		System.out.println("To Get Selective Month Salary......");
-		System.out.println("Enter Starting date of The month (yyyy-mm-dd): ");
-		LocalDate startDate = LocalDate.parse(sr.next());
-		System.out.println("Enter End date of The month (yyyy-mm-dd):  ");
-		LocalDate endDate = LocalDate.parse(sr.next());
 		
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
-			double salary = empDAO.totalSalaryOfMonth(startDate,endDate,EmployeeUI.getEmpId());
-			System.out.println(salary);  // need to work on it
-			
-		}catch(SomthingWentWrongException ex) {
+			double salary = empDAO.totalSalaryOfMonth(EmployeeUI.getEmpId());
+			System.out.println(ConsoleColor.YELLOW+"The Month Salary : " +  salary+ConsoleColor.RESET);  // need to work on it
+			Thread.sleep(1000);
+		}catch(SomthingWentWrongException | InterruptedException ex) {
 			System.out.println(ex);
 		}
 		
@@ -205,7 +202,7 @@ public class EmployeeUIImpl extends EmployeeUI{
 		EmployeeDAO empDAO = new EmployeeDAOImpl();
 		try {
 			double salary = empDAO.totalSalaryAnnualy(EmployeeUI.getEmpId());
-			System.out.println(salary);  // need to work on it
+			System.out.println(ConsoleColor.YELLOW+"The Annual Salary : " +  salary + ConsoleColor.RESET);  // need to work on it
 			
 		}catch(SomthingWentWrongException ex) {
 			System.out.println(ex);

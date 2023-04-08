@@ -13,7 +13,7 @@ public class MainUI {
 			System.out.println(ConsoleColor.BANANA_YELLOW + "====================================================" +ConsoleColor.RESET);
 			System.out.println("Press 1: < ---- > LogIn To Admin panel         		");
 			System.out.println("Press 0: < ---- > Wants to go back to Home Page		");
-			System.out.println("====================================================");
+			System.out.println(ConsoleColor.BANANA_YELLOW + "===================================================="+ConsoleColor.RESET);
 			System.out.println("Enter your choice : ");
 			choice = sr.next();
 			switch(choice) {
@@ -32,10 +32,10 @@ public class MainUI {
 	static void employeeLink(Scanner sr) {
 		String choice = "0";
 		do {
-			System.out.println("====================================================");
+			System.out.println(ConsoleColor.BANANA_YELLOW + "====================================================" +ConsoleColor.RESET);
 			System.out.println("Press 1: < ---- >  LogIn To Employee Page         		");
 			System.out.println("Press 0: < ---- >  Wants to go back to Home Page		");
-			System.out.println("====================================================");
+			System.out.println(ConsoleColor.BANANA_YELLOW + "===================================================="+ConsoleColor.RESET);
 			System.out.println("Enter your choice : ");
 			choice = sr.next();
 			switch(choice) {
@@ -55,18 +55,20 @@ public class MainUI {
 	
 	public static void main(String args[]) throws InterruptedException {
 		Scanner sr = new Scanner(System.in);
-		System.out.println(ConsoleColor.YELLOW+ "-----------WELCOME-------------");
-		System.out.println("---StarHR Management System----");
-		System.out.println("-------------------------------"+ConsoleColor.RESET);
+		System.out.println(ConsoleColor.YELLOW+ "-----------WELCOME-----------------");
+		System.out.println("---StarHR Management System-----------------");
+		System.out.println("================================================"+ConsoleColor.RESET);
 		
 		
-		System.out.println("-------------------------------");
+		System.out.println(ConsoleColor.BLUE+"========================================"+ConsoleColor.RESET);
 		String choice = "0";
 		do {
-			System.out.println("----WHERE YOU WANT TO VISIT----");
+			System.out.println(ConsoleColor.BLUE+"========================================"+ConsoleColor.RESET);
+			System.out.println(ConsoleColor.YELLOW+"----WHERE YOU WANT TO VISIT----------"+ConsoleColor.RESET);
 			System.out.println("Press 1: < ---- > Admin Page ");
 			System.out.println("Press 2: < ---- > Employee Page ");
 			System.out.println("Press 0: < ---- > Exit ");
+			//System.out.println(ConsoleColor.RED+"========================================"+ConsoleColor.RESET);
 			System.out.print("Enter your selection : ");
 			choice = sr.next();
 			switch(choice) {
@@ -77,7 +79,7 @@ public class MainUI {
 				 employeeLink(sr);
 				 break;
 			case "0":
-				System.out.println("-----------Thanks For Visit!----------");
+				System.out.println(ConsoleColor.YELLOW+"-----------Thanks For Visit!----------"+ConsoleColor.RESET);
 				break;
 			default:
 				System.out.println("Opps! try again wrong selection");

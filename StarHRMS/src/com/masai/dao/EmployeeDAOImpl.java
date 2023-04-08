@@ -249,7 +249,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public double totalSalaryOfMonth(LocalDate startDate,LocalDate endDate,int empId) throws SomthingWentWrongException {
+	public double totalSalaryOfMonth(int empId) throws SomthingWentWrongException {
 		
 		Connection conn = null;
 		double salary = 0;
@@ -257,30 +257,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try {
 			conn = DBUtility.getConnectionToDataBase();
 			// need to work.................................//
-			String query = "select count(*) from empleave where eId = ? AND status = 'Accepted' AND type = 3 "
-					+ "AND date_of_leave BETWEEN ? AND ? ";
+			String query = "select count(*) from empleave where eId = ? AND status = 'Accepted' AND type = 3";
 							
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, empId);
-			ps.setDate(2, Date.valueOf(startDate));
-			ps.setDate(3,Date.valueOf(endDate));
 			
 			ResultSet rs = ps.executeQuery();
 			if(DBUtility.isResultSetEmpty(rs)) {
-				PreparedStatement ps1 = conn.prepareStatement("select Salary_Per_Month from employee where eId = ? AND is_delete = 0");
-				ps1.setInt(1, empId);
-				
-				ResultSet rs2 = ps.executeQuery();
-				if(DBUtility.isResultSetEmpty(rs2)){
-					throw new SomthingWentWrongException("Somthing went wrong! Please try again after some time ");
-				}
-				salary = rs2.getDouble(1);
+					throw new SomthingWentWrongException("No Leave have taken");
 			}
 			while(rs.next()) {
 				total_leave = rs.getInt(1);
 			  }
 			
-			PreparedStatement ps2 = conn.prepareStatement("select round(Salary_Per_Month-(Salary_Per_Month/30*?) , 2) where eId = ?");
+			PreparedStatement ps2 = conn.prepareStatement("select round(Salary_Per_Month-(Salary_Per_Month/30*?) , 2) from employee where eId = ?");
 			ps2.setInt(1, total_leave);
 			ps2.setInt(2,empId);
 			
@@ -291,6 +281,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			while(rs2.next()) {
 				salary=rs2.getDouble(1);
 			}
+		 
 		} catch (ClassNotFoundException |SQLException e) {
 			//throw new SomthingWentWrongException("Unable to connection with database! please try again");
 			throw new SomthingWentWrongException(e.getMessage());
@@ -301,7 +292,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				e.printStackTrace();
 			}
 		}
-		return salary;
+	 return salary;
 	}
 
 	@Override
@@ -312,7 +303,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try {
 			conn = DBUtility.getConnectionToDataBase();
 			
-			PreparedStatement ps = conn.prepareStatement("select round(Salary_Per_Month*12) , 2) from employee where eId = ?");
+			PreparedStatement ps = conn.prepareStatement("select round((salary_per_Month*12),2) from employee where eid=?");
 			
 			ps.setInt(1,empId);
 			ResultSet rs = ps.executeQuery();

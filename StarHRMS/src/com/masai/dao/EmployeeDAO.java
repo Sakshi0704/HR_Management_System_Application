@@ -23,7 +23,7 @@ public interface EmployeeDAO {
 
 	public List<LeaveDTO> recordOfLeave(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException;
 
-	public double totalSalaryOfMonth(LocalDate startDate,LocalDate endDate,int empId) throws SomthingWentWrongException;
+	public double totalSalaryOfMonth(int empId) throws SomthingWentWrongException;
 
 	public double totalSalaryAnnualy(int empId) throws SomthingWentWrongException;
 

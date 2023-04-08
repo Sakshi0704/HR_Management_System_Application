@@ -35,7 +35,10 @@ public class AdminDAOImpl implements AdminDAO{
 			ps.setString(1, deptId);
 			ps.setString(2, deptName);
 			
-			ps.executeUpdate();
+			int i = ps.executeUpdate();
+			if(i==0) {
+				throw new SomthingWentWrongException("Please Provide the Correct Details");
+			}
 		
 		}catch(SQLException | ClassNotFoundException ex) {
 			throw new SomthingWentWrongException(ex.getMessage());
@@ -84,27 +87,42 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void updateDepartmentAllDetails(int oldDeptID,String deptId, String deptName)
+	public void updateDepartmentAllDetails(String oldDeptID,String deptId, String deptName)
 			throws SomthingWentWrongException, NoSuchRecordFoundException {
 			
 		Connection conn = null;
-		
+		int did = 0;
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "Update dept set deptID = ? , deptName = ? where did = ?";
+		
+			String query = "select did from dept where deptID = ? AND is_delete = 0";
 			
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, deptId);
-			ps.setString(2,deptName);
-			ps.setInt(3, oldDeptID);
 			
-			int rs = ps.executeUpdate();
+			ps.setString(1, oldDeptID);
 			
-			if(rs==0) {
-				throw new NoSuchRecordFoundException("No Such Record Found");
+			ResultSet rs = ps.executeQuery();
+			if(DBUtility.isResultSetEmpty(rs)) {
+				throw new SomthingWentWrongException("Currect DeptID is invalid ! please check ");
 			}
 			
-		}catch(SQLException | ClassNotFoundException ex) {
+			while(rs.next()) {
+				did = rs.getInt(1);
+			}
+			query = "Update dept set deptID = ? , deptName = ? where did = ? AND is_delete = 0";
+			
+			ps = conn.prepareStatement(query);
+			ps.setString(1, deptId);
+			ps.setString(2,deptName);
+			ps.setInt(3, did);
+			
+			int i = ps.executeUpdate();
+			
+			if(i==0) {
+				throw new NoSuchRecordFoundException("No Such Updated Dept Id avaiable");
+			}
+			
+		}catch(SomthingWentWrongException|NoSuchRecordFoundException| SQLException | ClassNotFoundException ex) {
 			throw new SomthingWentWrongException(ex.getMessage());
 			
 		}finally {
@@ -371,21 +389,21 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public Map<Integer, LeaveDTO> getListOfLeaveRequst() throws SomthingWentWrongException {
-		
+		//select leaveId,days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename from empleave el LEfT JOIN employee e ON el.eId = e.eId AND status = 'panding' order by date_of_leave desc limit 1;
 		Connection conn = null;
 		Map<Integer,LeaveDTO> map = null;
 		try {
 			conn = DBUtility.getConnectionToDataBase();
 			String query = "select leaveId,days_of_leave,type,reason,date_of_leave,status,e.empId,e.ename "
 					+ "from empleave el LEfT JOIN employee e"
-					+ " ON el.eId = e.eId AND status = 'panding' order by desc";
+					+ " ON el.eId = e.eId where el.status = 'panding' order by date_of_leave desc";
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			if(DBUtility.isResultSetEmpty(rs)) {
-				throw new SomthingWentWrongException("No Record is panding");
+				throw new SomthingWentWrongException("No Leave Request is panding");
 			}
 		 map = new LinkedHashMap<>();
 //					leaveId int ,days_of_leave, type tinyint , reason varchar(75),date_of_leave date , status varchar(15) default 'panding',eId int
@@ -415,16 +433,16 @@ public class AdminDAOImpl implements AdminDAO{
 		Connection conn = null;
 		try {
 			conn = DBUtility.getConnectionToDataBase();
-			String query = "update empleave set status = 'Accept' where leaveId = ? AND is_removed = 0";
+			String query = "update empleave set status = 'Accept',is_removed = 1 where leaveId = ? AND status = 'panding' AND is_removed = 0";
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			
 			ps.setInt(1, leaveId);
 			
-			ResultSet rs = ps.executeQuery();
+			int i = ps.executeUpdate();
 			
-			if(DBUtility.isResultSetEmpty(rs)) {
-				throw new SomthingWentWrongException("Something went wrong ! please try again letter");
+			if(i==0) {
+				throw new SomthingWentWrongException("Something went wrong ! please try again");
 			}
 			
 		}catch(SQLException | ClassNotFoundException ex) {
