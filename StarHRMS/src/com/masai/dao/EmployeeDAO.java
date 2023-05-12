@@ -11,13 +11,15 @@ import com.masai.exception.WrongCredentialsException;
 
 public interface EmployeeDAO {
 
-	public List<String> empLogIn(String emailId, String password) throws WrongCredentialsException, SomthingWentWrongException;
+	public List<String> empLogIn(String emailId, String password)
+			throws WrongCredentialsException, SomthingWentWrongException;
 
 	public EmployeeDTO viewYourProfile(int empId) throws NoSuchRecordFoundException, SomthingWentWrongException;
 
-	public void changePassword(String password,String updatedPassword, int empId) throws NoSuchRecordFoundException,SomthingWentWrongException;
+	public void changePassword(String password, String updatedPassword, int empId)
+			throws NoSuchRecordFoundException, SomthingWentWrongException;
 
-	public void applyForLeave(LeaveDTO leave ,int empId) throws SomthingWentWrongException;
+	public void applyForLeave(LeaveDTO leave, int empId) throws SomthingWentWrongException;
 
 	public LeaveDTO leaveStatus(int empId) throws SomthingWentWrongException, NoSuchRecordFoundException;
 
@@ -27,8 +29,4 @@ public interface EmployeeDAO {
 
 	public double totalSalaryAnnualy(int empId) throws SomthingWentWrongException;
 
-	
-	
-	
-	
 }

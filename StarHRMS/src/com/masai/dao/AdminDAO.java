@@ -12,29 +12,27 @@ import com.masai.exception.SomthingWentWrongException;
 
 public interface AdminDAO {
 
-	void addNewDepartment(String deptId,String deptName) throws SomthingWentWrongException;
+	void addNewDepartment(String deptId, String deptName) throws SomthingWentWrongException;
 
-	List<DepartmentDTO> viewAllDepartment()throws SomthingWentWrongException,NoSuchRecordFoundException;
+	List<DepartmentDTO> viewAllDepartment() throws SomthingWentWrongException, NoSuchRecordFoundException;
 
 	void updateDepartmentAllDetails(String oldDeptID, String deptId, String deptName)
 			throws SomthingWentWrongException, NoSuchRecordFoundException;
+
 	public List<EmployeeDTO> viewAllEmployee() throws NoSuchRecordFoundException, SomthingWentWrongException;
 
 	void addNewEmployee(EmployeeDTO employee, String deptID) throws SomthingWentWrongException;
 
 	void deleteDepartment(String deptID) throws SomthingWentWrongException;
 
-	void transferemployeetootherdepart(String empId, String deptID)throws SomthingWentWrongException;
+	void transferemployeetootherdepart(String empId, String deptID) throws SomthingWentWrongException;
 
-	void fireEmployee(String empId)throws SomthingWentWrongException;
+	void fireEmployee(String empId) throws SomthingWentWrongException;
 
-	Map<Integer, LeaveDTO> getListOfLeaveRequst()throws SomthingWentWrongException;
+	Map<Integer, LeaveDTO> getListOfLeaveRequst() throws SomthingWentWrongException;
 
-	void acceptLeaveOfEmployee(int leaveId)throws SomthingWentWrongException;
+	void acceptLeaveOfEmployee(int leaveId) throws SomthingWentWrongException;
 
-	void rejectLeaveOfEmployee(int leaveId)throws SomthingWentWrongException;
-
-
-
+	void rejectLeaveOfEmployee(int leaveId) throws SomthingWentWrongException;
 
 }

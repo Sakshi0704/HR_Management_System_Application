@@ -1,12 +1,18 @@
 package com.masai.dto;
 
+/**
+ * The DepartmentDTOImpl class is an implementation of the DepartmentDTO interface.
+ * It represents a department data transfer object with its ID and name.
+ * @author Km Sakshi
+ */
 public class DepartmentDTOImpl implements DepartmentDTO {
 
 	private String deptID;
 	private String diptname;
-	
-	public DepartmentDTOImpl() {};
-	
+
+	public DepartmentDTOImpl() {
+	};
+
 	public DepartmentDTOImpl(String deptID, String diptname) {
 		super();
 		this.deptID = deptID;
@@ -35,10 +41,10 @@ public class DepartmentDTOImpl implements DepartmentDTO {
 
 	@Override
 	public String toString() {
-		return " deptID=" + deptID + ", diptname=" + diptname ;
+	    StringBuilder sb = new StringBuilder();
+	    sb.append(String.format("|         %-6s          |         %-20s|\n", deptID, diptname));
+	    sb.append("+-------------------------+-----------------------------+");
+	    return sb.toString();
 	}
-	
-	
-	
-	
+
 }
