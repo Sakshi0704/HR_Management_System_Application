@@ -1,13 +1,13 @@
 package com.masai.dto;
 
 import java.time.LocalDate;
-
 import com.masai.color.ConsoleColor;
 
 /**
  * The EmployeeDTOImpl class is an implementation of the EmployeeDTO interface.
- * It represents a data transfer object for an employee and provides methods
- * to get and set various attributes of the employee.
+ * It represents a data transfer object for an employee and provides methods to
+ * get and set various attributes of the employee.
+ * 
  * @author Km Sakshi
  */
 public class EmployeeDTOImpl implements EmployeeDTO {
@@ -120,30 +120,33 @@ public class EmployeeDTOImpl implements EmployeeDTO {
 
 	@Override
 	public String toString() {
-	    StringBuilder sb = new StringBuilder();
-	   
-	    sb.append(String.format("|  %-5s  |      %-10s  |  %-14s  |      %-10s  |      %-10s  | %-6.2f  |  %-6s  |  %-14s |  %-13s |\n", empId, ename, email, password, empAddress, salary, dept.getDeptID(),dept.getDiptname(),date));
-	    sb.append("+---------+------------------+------------------+------------------+------------------+-----------+----------+-----------------+----------------+");
-	    return sb.toString();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format(
+				"|  %-5s  |      %-10s  |  %-14s  |      %-10s  |      %-10s  | %-6.2f  |  %-6s  |  %-14s |  %-13s |\n",
+				empId, ename, email, password, empAddress, salary, dept.getDeptID(), dept.getDiptname(), date));
+		sb.append(
+				"+---------+------------------+------------------+------------------+------------------+-----------+----------+-----------------+----------------+");
+		return sb.toString();
 	}
-	
+
 	@Override
 	public String toString1() {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append(ConsoleColor.BANANA_YELLOW + "+--------------------------------------------+\n");
-	    sb.append("|          Employee Details                  |\n");
-	    sb.append("+--------------------------------------------+\n");
-	    sb.append("| empId          : " + empId + "                      |\n");
-	    sb.append("| ename          : " + ename + "                    |\n");
-	    sb.append("| email          : " + email + "             |\n");
-	    sb.append("| password       : " + password + "                   |\n");
-	    sb.append("| empAddress     : " + empAddress + "                     |\n");
-	    sb.append("| salary         : " + salary + "                   |\n");
-	    sb.append("| deptId         : " + dept.getDeptID() + "                      |\n");
-	    sb.append("| deptName       : " + dept.getDiptname() + "                      |\n");
-	    sb.append("| date_of_joining: " + date + "                |\n");
-	    sb.append("+--------------------------------------------+" + ConsoleColor.RESET);
-	    return sb.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(ConsoleColor.BANANA_YELLOW + "+--------------------------------------------+\n");
+		sb.append("|          Employee Details                  |\n");
+		sb.append("+--------------------------------------------+\n");
+		sb.append("| empId          : " + empId + "                      |\n");
+		sb.append("| ename          : " + ename + "                    |\n");
+		sb.append("| email          : " + email + "             |\n");
+		sb.append("| password       : " + password + "                   |\n");
+		sb.append("| empAddress     : " + empAddress + "                     |\n");
+		sb.append("| salary         : " + salary + "                   |\n");
+		sb.append("| deptId         : " + dept.getDeptID() + "                      |\n");
+		sb.append("| deptName       : " + dept.getDiptname() + "                      |\n");
+		sb.append("| date_of_joining: " + date + "                |\n");
+		sb.append("+--------------------------------------------+" + ConsoleColor.RESET);
+		return sb.toString();
 	}
 
 }

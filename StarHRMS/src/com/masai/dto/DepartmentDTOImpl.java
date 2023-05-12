@@ -1,8 +1,10 @@
 package com.masai.dto;
 
 /**
- * The DepartmentDTOImpl class is an implementation of the DepartmentDTO interface.
- * It represents a department data transfer object with its ID and name.
+ * The DepartmentDTOImpl class is an implementation of the DepartmentDTO
+ * interface. It represents a department data transfer object with its ID and
+ * name.
+ * 
  * @author Km Sakshi
  */
 public class DepartmentDTOImpl implements DepartmentDTO {
@@ -41,10 +43,10 @@ public class DepartmentDTOImpl implements DepartmentDTO {
 
 	@Override
 	public String toString() {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append(String.format("|         %-6s          |         %-20s|\n", deptID, diptname));
-	    sb.append("+-------------------------+-----------------------------+");
-	    return sb.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("|         %-6s          |         %-20s|\n", deptID, diptname));
+		sb.append("+-------------------------+-----------------------------+");
+		return sb.toString();
 	}
 
 }

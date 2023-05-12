@@ -1,14 +1,13 @@
 package com.masai.dto;
 
-import java.sql.Date;
 import java.time.LocalDate;
-
 import com.masai.color.ConsoleColor;
 
 /**
- * The LeaveDTOImpl class implements the LeaveDTO interface 
- * represents a data transfer object for employee leaves.
- * It provides getters and setters for various attributes of a leave and overrides the toString1() method.
+ * The LeaveDTOImpl class implements the LeaveDTO interface represents a data
+ * transfer object for employee leaves. It provides getters and setters for
+ * various attributes of a leave and overrides the toString1() method.
+ * 
  * @author Km Sakshi
  */
 public class LeaveDTOImpl implements LeaveDTO {
@@ -149,34 +148,32 @@ public class LeaveDTOImpl implements LeaveDTO {
 //	    sb.append("+----------------------------------------------------------------+\n");
 //	    return sb.toString();
 //	}
-	
-	
 
 	@Override
 	public String toString1() {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append(ConsoleColor.BLACK_BACKGROUND_BRIGHT + ConsoleColor.BLACK_BOLD+"+--------------------------------------------------+\n");
-	    sb.append("|             Leave Information                   |\n");
-	    sb.append("|--------------------------------------------------|"+ConsoleColor.RESET+"\n");
-	    sb.append("| empId = ").append(empId).append(",\n");
-	    sb.append("| empName = ").append(empName).append(",\n");
-	    sb.append("| days_of_leave = ").append(days_of_leave).append(",\n");
-	    sb.append("| type = ").append(getTypeInWords()).append(",\n");
-	    sb.append("| reason = ").append(reason).append(",\n");
-	    sb.append("| date = ").append(date).append(",\n");
-	    sb.append(ConsoleColor.YELLOW+"| status = ").append(status);
-	    return sb.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(ConsoleColor.BLACK_BACKGROUND_BRIGHT + ConsoleColor.BLACK_BOLD
+				+ "+--------------------------------------------------+\n");
+		sb.append("|             Leave Information                   |\n");
+		sb.append("|--------------------------------------------------|" + ConsoleColor.RESET + "\n");
+		sb.append("| empId = ").append(empId).append(",\n");
+		sb.append("| empName = ").append(empName).append(",\n");
+		sb.append("| days_of_leave = ").append(days_of_leave).append(",\n");
+		sb.append("| type = ").append(getTypeInWords()).append(",\n");
+		sb.append("| reason = ").append(reason).append(",\n");
+		sb.append("| date = ").append(date).append(",\n");
+		sb.append(ConsoleColor.YELLOW + "| status = ").append(status);
+		return sb.toString();
 	}
-	
-
-	
 
 	@Override
 	public String toString() {
-	    StringBuilder sb = new StringBuilder();
-	    
-	    sb.append(String.format("|  %-7s  |  %-15s |  %-15d |  %-7s |  %-15s |  %-12s |  %-9s |\n", empId, empName, days_of_leave, type, reason, date, status));
-	    sb.append("+------------+-----------+------------------+------------------+----------+------------------+---------------+------------+");
-	    return sb.toString();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(String.format("|  %-7s  |  %-15s |  %-15d |  %-7s |  %-15s |  %-12s |  %-9s |\n", empId, empName,
+				days_of_leave, type, reason, date, status));
+		sb.append(
+				"+------------+-----------+------------------+------------------+----------+------------------+---------------+------------+");
+		return sb.toString();
 	}
 }
