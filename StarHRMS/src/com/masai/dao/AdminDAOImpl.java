@@ -17,6 +17,7 @@ import com.masai.dto.LeaveDTO;
 import com.masai.dto.LeaveDTOImpl;
 import com.masai.exception.NoSuchRecordFoundException;
 import com.masai.exception.SomthingWentWrongException;
+import com.masai.validation.EmailValidation;
 
 /**
  * Implementation of the AdminDAO interface that provides the functionality to
@@ -29,6 +30,12 @@ import com.masai.exception.SomthingWentWrongException;
  */
 public class AdminDAOImpl implements AdminDAO {
 
+	
+	// Create an instance of the EmailValidation class for email address validation
+	EmailValidation emailValidation = new EmailValidation();
+	
+	
+	
 	/**
 	 * Adds a new department to the database.
 	 *
@@ -78,6 +85,9 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 	}
 
+	
+	
+	
 	/**
 	 * Returns a list of all departments in the database.
 	 *
@@ -129,6 +139,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return list;
 	}
 
+	
+	
+	
 	/**
 	 * Updates all details of a department in the database.
 	 *
@@ -203,6 +216,10 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 	}
 
+	
+	
+	
+	
 	/**
 	 * Retrieves a list of all employees from the database.
 	 *
@@ -258,6 +275,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return list;
 	}
 
+	
+	
+	
 	/**
 	 * Adds a new employee to the database.
 	 *
@@ -274,6 +294,18 @@ public class AdminDAOImpl implements AdminDAO {
 		Connection conn = null;
 		int did = 0;
 		try {
+			
+			// Validate the email address of the employee using the emailValidation instance
+			if(!emailValidation.emailValidation(employee.getEmail())){
+				
+				// If the email address is invalid, throw an exception indicating the issue
+				throw new SomthingWentWrongException("Wrong email address please provide valid email address");
+				
+				
+			}
+			
+			
+			
 			// Establish a connection to the database
 			conn = DBUtility.getConnectionToDataBase();
 
@@ -332,6 +364,10 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	
+	
+	
+	
 	/**
 	 * Deletes a department from the database.
 	 *
@@ -397,6 +433,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	
+	
+	
 	/**
 	 * Transfers an employee to another department.
 	 *
@@ -487,6 +526,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	
+	
+	
 	/**
 	 * Fires an employee by marking them as deleted in the database.
 	 *
@@ -549,6 +591,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	
+	
+	
 	/**
 	 * Retrieves a list of pending leave requests from the database.
 	 *
@@ -609,6 +654,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return map;
 	}
 
+	
+	
+	
 	/**
 	 * Accepts a leave request of an employee by updating its status in the
 	 * database.
@@ -656,6 +704,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	
+	
+	
 	/**
 	 * Rejects a leave request of an employee by updating its status in the
 	 * database.
