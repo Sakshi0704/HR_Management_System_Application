@@ -1,7 +1,9 @@
 # cheerful-notebook-6741
 
 <h1 align="center" >Human Resource Management System</h1>
-<div align="center"><img src="https://user-images.githubusercontent.com/112800906/229359172-0a12292c-9ea1-4278-9a3d-7e4006feffc7.png"></div>
+<!-- <div align="center"><img src="https://user-images.githubusercontent.com/112800906/229359172-0a12292c-9ea1-4278-9a3d-7e4006feffc7.png"></div> -->
+<div align="center"><img src="https://github.com/Sakshi0704/HR-Management-System/assets/112800906/5db1bd65-8c26-4037-a4cd-5de8871d837e"></div>
+<!-- ![HumanRecourseManagementSystem](https://github.com/Sakshi0704/HR-Management-System/assets/112800906/5db1bd65-8c26-4037-a4cd-5de8871d837e) -->
 
 <br>
 
